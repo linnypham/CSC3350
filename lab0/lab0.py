@@ -16,11 +16,11 @@ class Encyclopedia(Book):
         super().__init__(title, author, publisher, publication_date)
         self.edition = edition
         self.num_Pages = num_Pages
-        super().print_info()
+
     def print_info(self):
         super().print_info()
         print(f"Edition: {self.edition}")
         print(f"Number of Pages: {self.num_Pages}")
 
-book = Book("Harry Potter","J.K","Disney","2024")
-book.print_info()
+harry = Encyclopedia("Harry Potter","J.K","Disney","2024","2nd","1200")
+harry.print_info()

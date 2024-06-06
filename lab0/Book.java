@@ -1,4 +1,4 @@
-class Book {
+public class Book {
     String title;
     String author;
     String publisher;
@@ -18,7 +18,6 @@ class Book {
         System.out.println("Publication Date: " + publication_date);
     }
 }
-
 class Encyclopedia extends Book {
     private String edition;
     private int num_Pages;
@@ -35,9 +34,14 @@ class Encyclopedia extends Book {
         System.out.println("Edition: " + edition);
         System.out.println("Number of Pages: " + num_Pages);
     }
-
+}
+class Main {
     public static void main(String[] args) {
-        Encyclopedia encyclopedia = new Encyclopedia("Encyclopedia Book", "John Doe", "Encyclopedia Publishers", "2024-01-01", "2nd", 1969);
+        Book harryPorter = new Book("Harry Porter","J.K","Universal","1991-01-01");
+        harryPorter.print_info();
+        System.out.println();
+        Encyclopedia encyclopedia = new Encyclopedia("Encyclopedia Book", "John Doe",
+                "Encyclopedia Publishers", "2024-01-01", "2nd", 196969);
         encyclopedia.print_info();
     }
 }

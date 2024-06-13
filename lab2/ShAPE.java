@@ -1,113 +1,149 @@
 package lab2;
 
-public class Shape {
-    String color;
-    double area;
+abstract class Shape {
+    private String color;
 
-    Shape(String color){
-        this.color  = color;
+    public Shape(String color) {
+        this.color = color;
     }
 
-    double calculateArea(){
-        return area;
+    public String getColor() {
+        return color;
     }
-    void draw(){
-        System.out.println("*");
-    }
-    void getColor(){
-        System.out.println("The color is "+color);
-    }
+
+    public abstract double calculateArea();
+
+    public abstract void draw();
 }
-class Circle extends Shape{
-    int radius;
 
-    Circle(String color, int radius){
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(String color, double radius) {
         super(color);
         this.radius = radius;
     }
-    @Override
-    double calculateArea(){
-        area = 2 * radius  * Math.PI;
-        return area;
-    }
-    @Override
-    void draw(){
-        int x = 5;
-        int y = 15;
-        for (int i = 0; i <= x + radius; i++){
-            for (int j = 1; j<= y + radius; j++){
-                int xSquared = (i - x)*(i - x);
-                int ySquared = (j - y)*(j - y);
-                 if (Math.abs(xSquared + ySquared - radius * radius) < radius) {
-                    System.out.print("*");
-                 } else {
-                    System.out.print(" ");
-                 }
-            }
-            System.out.println();
-        }
 
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Circle with radius " + radius + " and color " + getColor());
     }
 }
-class Rectangle extends Shape{
-    int diagonal;
-    int height;
-    int width;
 
-    Rectangle(String color, int height, int width){
+class Rectangle extends Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(String color, double width, double height) {
         super(color);
-        this.height = height;
         this.width = width;
+        this.height = height;
     }
+
     @Override
-    double calculateArea(){
-        area = height * width;
-        return area;
+    public double calculateArea() {
+        return width * height;
     }
+
     @Override
-    void draw(){
-        for (int w = 1; w <= width; w++) {
-            for (int h = 1; h <= height; h++) {
-                System.out.print("*");
-            }
-            System.out.println();
-        }
+    public void draw() {
+        System.out.println("Drawing a Rectangle with width " + width + ", height " + height + " and color " + getColor());
     }
 }
-class Triangle extends Shape{
-    int height;
-    int base;
-    int sideA;
-    int sideB;
-    Triangle(String color, int base, int sideA, int sideB){
+
+class Triangle extends Shape {
+    private double base;
+    private double height;
+
+    public Triangle(String color, double base, double height) {
         super(color);
         this.base = base;
-        this.sideA = sideA;
-        this.sideB = sideB;
+        this.height = height;
     }
-    @Override
-    double calculateArea(){
-        area = (height * base)/2;
-        return area;
-    }
-    @Override
-    void draw(){
-        System.out.println("Draw a Triangle.");
-    }
-}
-public interface ColoredShape{
-    String getColor();
-}
-public abstract class ColoredShapeDecorator{
-    implements ColoredShape{
 
+    @Override
+    public double calculateArea() {
+        return 0.5 * base * height;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Triangle with base " + base + ", height " + height + " and color " + getColor());
     }
 }
-class Main{
-    public static void main(String[] args){
-    Circle circle = new Circle("red",5);
-    circle.getColor();
-    Rectangle rectangle = new Rectangle("red",50,5);
-    Triangle triangle = new Triangle("red",5,5,5);
+
+class ColoredShapeDecorator extends Shape {
+    private Shape decoratedShape;
+    private String newColor;
+
+    public ColoredShapeDecorator(Shape decoratedShape, String newColor) {
+        super(decoratedShape.getColor());
+        this.decoratedShape = decoratedShape;
+        this.newColor = newColor;
+    }
+    @Override
+    public String getColor() {
+        return newColor;
+    }
+    @Override
+    public double calculateArea() {
+        return decoratedShape.calculateArea();
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing shape with new color: " + newColor);
+    }
+
+
+}
+
+interface DrawingStrategy {
+    void draw();
+}
+
+class ConsoleDrawingStrategy implements DrawingStrategy {
+    @Override
+    public void draw() {
+        System.out.println("Drawing using Console Drawing Strategy");
+    }
+}
+
+class GraphicsDrawingStrategy implements DrawingStrategy {
+    @Override
+    public void draw() {
+        System.out.println("Drawing using Graphics Drawing Strategy");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Shape circle = new Circle("Red", 6);
+        Shape rectangle = new Rectangle("Blue", 6, 9);
+        Shape triangle = new Triangle("Green", 6, 9);
+
+        Shape[] shapes = {circle, rectangle, triangle};
+
+        for (Shape shape : shapes) {
+            System.out.println("Area: " + shape.calculateArea());
+            shape.draw();
+            System.out.println();
+        }
+
+        Shape coloredCircle = new ColoredShapeDecorator(circle, "Yellow");
+        System.out.println("Decorated Circle Area: " + coloredCircle.calculateArea());
+        coloredCircle.draw();
+
+        DrawingStrategy consoleStrategy = new ConsoleDrawingStrategy();
+        DrawingStrategy graphicsStrategy = new GraphicsDrawingStrategy();
+
+        System.out.println();
+        consoleStrategy.draw();
+        graphicsStrategy.draw();
     }
 }

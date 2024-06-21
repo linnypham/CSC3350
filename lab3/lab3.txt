@@ -1,0 +1,33 @@
+1)
+INSERT INTO students (first_name, last_name, date_of_birth, gender, contact_number, email_address, admission_year, department_id)
+VALUES ('Alice', 'Johnson', '2001-03-10', 'Female', '1234567890', 'alice.johnson@example.com', 2024, 1);
+2)
+SELECT * FROM students;
+3)
+UPDATE students SET admission_year = 2023 WHERE student = 1;
+4)
+DELETE FROM students WHERE student = 2;
+5)
+SELECT * FROM students WHERE gender = 'Male' AND admission_year = 2022;
+6)
+SELECT DISTINCT department_id FROM students;
+7)
+SELECT * FROM students ORDER BY admission_year DESC;
+8)
+SELECT credit_hours * 2 FROM courses;
+9)
+SELECT first_name+''+last_name AS full_name FROM students;
+10)
+SELECT * FROM enrollments;
+11)
+SELECT * FROM students WHERE admission_year BETWEEN 2020 AND 2022;
+12)
+SELECT * FROM students WHERE (department_id=1 OR department_id=2);
+13)
+SELECT * FROM students WHERE first_name LIKE 'A%';
+14)
+SELECT * FROM students WHERE last_name LIKE '%son%';
+15)
+SELECT * FROM students WHERE email_address LIKE '%@example.com';
+16)
+SELECT COUNT(*) FROM students;

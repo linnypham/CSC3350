@@ -1,6 +1,6 @@
 1)
 INSERT INTO students (first_name, last_name, date_of_birth, gender, contact_number, email_address, admission_year, department_id)
-VALUES ('Alice', 'Johnson', '2001-03-10', 'Female', '1234567890', 'alice.johnson@example.com', 2024, 1);
+VALUES ('Alice', 'Johnson', '2001-03-10', 'F', '1234567890', 'alice.johnson@example.com', 2024, 1);
 2)
 SELECT * FROM students;
 3)

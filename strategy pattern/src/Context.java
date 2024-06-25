@@ -1,4 +1,4 @@
-public class Context {
+public class    Context {
     private ISort sorter;
     public Context(ISort sorter)
     {

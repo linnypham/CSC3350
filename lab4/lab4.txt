@@ -1,0 +1,8 @@
+1)
+SELECT COUNT(*) FROM students GROUP BY department_id;
+2)
+SELECT department_id FROM students 
+GROUP BY department_id HAVING count(department_id)>=2;
+3)
+SELECT students.first_name, courses.courses_id FROM students,courses 
+LEFT JOIN students, enrollments

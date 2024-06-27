@@ -1,8 +1,69 @@
 1)
-SELECT COUNT(*) FROM students GROUP BY department_id;
+SELECT department_id, COUNT(*) AS count
+FROM Students
+GROUP BY department_id;
 2)
-SELECT department_id FROM students 
-GROUP BY department_id HAVING count(department_id)>=2;
+SELECT department_id, COUNT(*) AS count
+FROM Students
+GROUP BY department_id
+HAVING COUNT(*) > 2;
 3)
-SELECT students.first_name, courses.courses_id FROM students,courses 
-LEFT JOIN students, enrollments
+SELECT s.first_name, c.course_name
+FROM Students s
+LEFT JOIN Enrollments e ON s.student_id = e.student_id
+LEFT JOIN Courses c ON e.course_id = c.course_id;
+4)
+SELECT s.first_name, c.course_name
+FROM Students s
+INNER JOIN Enrollments e ON s.student_id = e.student_id
+INNER JOIN Courses c ON e.course_id = c.course_id;
+5)
+SELECT s.first_name, c.course_name
+FROM Students s
+FULL OUTER JOIN Enrollments e ON s.student_id = e.student_id
+FULL OUTER JOIN Courses c ON e.course_id = c.course_id;
+6)
+SELECT department_id, AVG(YEAR(CURRENT_DATE) - YEAR(date_of_birth)) AS avg_age
+FROM Students
+GROUP BY department_id;
+7)
+SELECT student_id, COUNT(course_id) AS course_count
+FROM Enrollments
+GROUP BY student_id;
+8)
+SELECT department_id, COUNT(*) AS student_count
+FROM Students
+GROUP BY department_id
+HAVING COUNT(*) > 5;
+9)
+SELECT s.*
+FROM Students s
+LEFT JOIN Enrollments e ON s.student_id = e.student_id
+WHERE e.student_id IS NULL;
+10)
+SELECT c.course_name, COUNT(e.student_id) AS student_count
+FROM Courses c
+LEFT JOIN Enrollments e ON c.course_id = e.course_id
+GROUP BY c.course_name;
+11)
+SELECT *
+FROM Students
+WHERE contact_number IS NULL;
+12)
+SELECT d.department_name, COUNT(s.student_id) AS student_count
+FROM Departments d
+LEFT JOIN Students s ON d.department_id = s.department_id
+GROUP BY d.department_name;
+13)
+SELECT gender, AVG(admission_year) AS avg_admission_year
+FROM Students
+GROUP BY gender;
+14)
+SELECT c.course_name
+FROM Courses c
+LEFT JOIN Enrollments e ON c.course_id = e.course_id
+WHERE e.course_id IS NULL;
+15)
+SELECT gender, department_id, COUNT(*) AS student_count
+FROM Students
+GROUP BY gender, department_id;

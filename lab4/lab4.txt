@@ -1,9 +1,9 @@
 1)
-SELECT department_id, COUNT(*) AS count
+SELECT department_id, COUNT(*) AS student_count
 FROM Students
 GROUP BY department_id;
 2)
-SELECT department_id, COUNT(*) AS count
+SELECT department_id, COUNT(*) AS student_count
 FROM Students
 GROUP BY department_id
 HAVING COUNT(*) > 2;
